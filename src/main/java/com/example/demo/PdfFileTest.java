@@ -7,6 +7,9 @@ import sun.misc.BASE64Decoder;
 
 import java.io.IOException;
 
+/**
+ * @author Zero
+ */
 public class PdfFileTest {
     public static void main(String[] args) throws IOException {
         String path = "E:\\pdfTest\\1.txt";
