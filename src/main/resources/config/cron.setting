@@ -1,0 +1,6 @@
+#hutool定时器  minute   hour   day   month   week   command
+
+#执行的类或对象方法所在包的名字
+[com.example.demo]
+#需要执行的类名和方法名
+TimerTest.print =*/3 * * * * *

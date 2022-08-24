@@ -2,6 +2,7 @@ package com.example.demo;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 
@@ -33,20 +34,24 @@ public class ZxcsBooks {
             scoreList.add(good + "-" + i);
         }
         scoreList.sort((a, b) -> b.compareTo(a));
+        FileUtil.writeLines(scoreList, "E:\\zxcsScore.txt", "utf-8");
 
         List<String> titleList = new ArrayList<>();
         for (String item : scoreList) {
             String[] str = item.split("-");
             String id = str[1];
             HttpResponse resp = HttpRequest.get(contentUrl + id).execute();
+            if (!resp.isOk()) {
+                continue;
+            }
             String text2 = resp.body();
-            String title = text2.substring(text2.indexOf("<title>《") + 7, text2.indexOf("》") + 1);
+            String title = text2.substring(text2.indexOf("<title>") + 7, text2.indexOf("</title>"));
             titleList.add(title + ", id:" + id + ", good:" + str[0]);
         }
 
         String path = "E:\\zxcs.txt";
         String charset = "utf-8";
         FileUtil.writeString(downloadUrl, path, charset);
-        FileUtil.writeLines(titleList, "E:\\zxcs.txt", "utf-8", true);
+        FileUtil.writeLines(titleList, path, charset, true);
     }
 }
