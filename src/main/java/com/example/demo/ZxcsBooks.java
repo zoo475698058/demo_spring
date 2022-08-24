@@ -35,6 +35,9 @@ public class ZxcsBooks {
         scoreList.sort((a, b) -> b.compareTo(a));
         FileUtil.writeLines(scoreList, "E:\\zxcsScore.txt", "utf-8");
 
+//        scoreList = FileUtil.readLines("E:\\zxcsScore.txt", "utf-8");
+
+
         List<String> titleList = new ArrayList<>();
         for (String item : scoreList) {
             String[] str = item.split("-");
@@ -44,7 +47,7 @@ public class ZxcsBooks {
                 continue;
             }
             String text2 = resp.body();
-            String title = text2.substring(text2.indexOf("<title>") + 7, text2.indexOf("</title>"));
+            String title = text2.substring(text2.indexOf("<title>《") + 7, text2.indexOf("》") + 1);
             titleList.add(title + ", id:" + id + ", good:" + str[0]);
         }
 
