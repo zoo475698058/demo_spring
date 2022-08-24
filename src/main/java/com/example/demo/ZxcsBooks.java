@@ -1,12 +1,9 @@
 package com.example.demo;
 
 import cn.hutool.core.convert.Convert;
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
-import cn.hutool.http.HttpUtil;
-import cn.hutool.json.JSONUtil;
-import com.sun.net.httpserver.HttpServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +41,12 @@ public class ZxcsBooks {
             HttpResponse resp = HttpRequest.get(contentUrl + id).execute();
             String text2 = resp.body();
             String title = text2.substring(text2.indexOf("<title>《") + 7, text2.indexOf("》") + 1);
-            titleList.add(title + ",id:" + id + ",good：" + str[0]);
+            titleList.add(title + ", id:" + id + ", good:" + str[0]);
         }
 
-        System.out.println(JSONUtil.toJsonStr(titleList));
+        String path = "E:\\zxcs.txt";
+        String charset = "utf-8";
+        FileUtil.writeString(downloadUrl, path, charset);
+        FileUtil.writeLines(titleList, "E:\\zxcs.txt", "utf-8", true);
     }
 }
