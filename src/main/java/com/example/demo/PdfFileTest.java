@@ -3,15 +3,13 @@ package com.example.demo;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import sun.misc.BASE64Decoder;
-
-import java.io.IOException;
+import org.springframework.util.Base64Utils;
 
 /**
  * @author Zero
  */
 public class PdfFileTest {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         String path = "E:\\pdfTest\\1.txt";
         String outPath = "E:\\pdfTest\\res3.pdf";
         String jStr = FileUtil.readUtf8String(path);
@@ -19,8 +17,7 @@ public class PdfFileTest {
         JSONObject object = JSONUtil.parseObj(jStr);
         String filesStr = object.getStr("obj");
 
-        BASE64Decoder decoder = new BASE64Decoder();
-        byte[] bStr = decoder.decodeBuffer(filesStr);
+        byte[] bStr = Base64Utils.decodeFromString(filesStr);
         FileUtil.writeBytes(bStr, outPath);
     }
 }

@@ -8,6 +8,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.Map;
 
+/**
+ * @author Zero
+ */
 public class JsonTest {
     public static void main(String[] args) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
