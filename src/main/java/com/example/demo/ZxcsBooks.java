@@ -35,9 +35,6 @@ public class ZxcsBooks {
         scoreList.sort((a, b) -> b.compareTo(a));
         FileUtil.writeLines(scoreList, "E:\\zxcsScore.txt", "utf-8");
 
-//        scoreList = FileUtil.readLines("E:\\zxcsScore.txt", "utf-8");
-
-
         List<String> titleList = new ArrayList<>();
         for (String item : scoreList) {
             String[] str = item.split("-");

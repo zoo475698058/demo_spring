@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -15,23 +17,19 @@ public class JsonTest {
     public static void main(String[] args) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        String jsonObjectStr = "{\"brand\":\"ford\", \"doors\":5}";
-        Map<String, Object> map = objectMapper.readValue(jsonObjectStr, new TypeReference<Map<String, Object>>() {});
+        String carJson = "{ \"brand\" : \"Mercedes\", \"doors\" : 5, \"owners\" : [\"John\", \"Jack\", \"Jill\"], \"nestedObject\" : { \"field\" : \"value\" } }";
+        LinkedHashMap<String, Object> map = objectMapper.readValue(carJson, new TypeReference<LinkedHashMap<String, Object>>() {});
+        map.put("doors2", 6);
         System.out.println(objectMapper.writeValueAsString(map));
 
-        String carJson = "{ \"brand\" : \"Mercedes\", \"doors\" : 5, \"owners\" : [\"John\", \"Jack\", \"Jill\"], \"nestedObject\" : { \"field\" : \"value\" } }";
-        JsonNode jsonNode = objectMapper.readValue(carJson, JsonNode.class);
-        // 或者
-        jsonNode = objectMapper.readTree(carJson);
-
-        // 取JSON属性值
+        //JsonNode
+        JsonNode jsonNode = objectMapper.readTree(carJson);
         JsonNode brandNode = jsonNode.get("brand");
         String brand = brandNode.asText();
         System.out.println("brand = " + brand);
         JsonNode doorsNode = jsonNode.get("doors");
         int doors = doorsNode.asInt();
         System.out.println("doors = " + doors);
-
         System.out.println("null--- " + jsonNode.hasNonNull("abc"));
 
         String a =  "{\"head\":{\"txTime\":\"20220808073028\",\"retCode\":\"60000000\",\"retMessage\":\"OK\"},\"person\":{\"userId\":\"E5B6C9D2B5EE2D19E05311016B0AF783\",\"personName\":\"象六\",\"identTypeCode\":\"0\",\"identNo\":\"430382199412110006\",\"email\":\"\",\"mobilePhone\":\"15197163914\",\"authenticationMode\":\"公安部\",\"authenticationTime\":\"20220808073028\",\"usedEmailLogin\":1,\"usedMobileLogin\":1,\"isOpenSM2\":0},\"notSendPwd\":0}";
